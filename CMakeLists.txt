@@ -1,14 +1,17 @@
-cmake_minimum_required(VERSION 2.8.11)
 project(PARTICLE_FILTER)
 
+cmake_minimum_required (VERSION 3.5)
+
+add_definitions(-std=c++0x)
 
 # Build the particle filter project and solution.
 # Use C++11
-set(SRCS src/main.cpp src/particle_filter.cpp)
-set_source_files_properties(${SRCS} PROPERTIES COMPILE_FLAGS -std=c++0x)
+set(sources 
+	src/main.cpp
+	src/particle_filter.cpp)
 
 # Create the executable
-add_executable(particle_filter ${SRCS})
+add_executable(particle_filter ${sources})
 
 # Use C++11
 #if [ ! -f ./src/particle_filter_sol.cpp]; then
@@ -18,11 +21,10 @@ add_executable(particle_filter ${SRCS})
 #fi
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/particle_filter_sol.cpp")
-	set(SRCS src/main.cpp src/particle_filter_sol.cpp)
-	set_source_files_properties(${SRCS} PROPERTIES COMPILE_FLAGS -std=c++0x)
+	set(sources src/main.cpp src/particle_filter_sol.cpp)
 
 	# Create the executable
-	add_executable(particle_filter_solution ${SRCS})
+	add_executable(particle_filter_solution ${sources})
 endif()
 
 

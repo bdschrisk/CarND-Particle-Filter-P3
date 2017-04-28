@@ -11,6 +11,12 @@
 
 #include "helper_functions.h"
 
+#include <random>
+#include <algorithm>
+#include <iostream>
+#include <numeric>
+#include <math.h>
+
 struct Particle {
 
 	int id;

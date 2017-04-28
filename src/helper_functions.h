@@ -12,7 +12,12 @@
 #include <fstream>
 #include <math.h>
 #include <vector>
+
 #include "map.h"
+
+#ifndef M_PI
+	#define M_PI 3.14159265358979323846
+#endif
 
 /*
  * Struct representing one position/control measurement.
@@ -63,6 +68,23 @@ inline double * getError(double gt_x, double gt_y, double gt_theta, double pf_x,
 		error[2] = 2.0 * M_PI - error[2];
 	}
 	return error;
+}
+
+/*
+* Computes the multivariate gaussian probability between two points.
+* @param x: first X coordinate
+* @param xu: second X coordinate (mu)
+* @param y: first Y coordinate
+* @param yu: second Y coordinate (mu)
+* @param std_x: X variance
+* @param std_y: Y variance
+* @output Scalar probability estimate
+*/
+inline double gaussianProbability(double x, double xu, double y, double yu, double std_x, double std_y) {
+	double x_exp = (pow(x - xu, 2) / (2.0 * pow(std_x, 2)));
+	double y_exp = (pow(y - yu, 2) / (2.0 * pow(std_y, 2)));
+
+	return 1.0 / (2.0 * M_PI * std_x*std_y) * exp(-(x_exp + y_exp));
 }
 
 /* Reads map data from a file.
